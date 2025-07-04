@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feliz cumpleaños💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff0f5;
+      color: #660033;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .cover {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('foto (13).jpeg') center/cover no-repeat;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff3366;
+      text-shadow: 2px 2px rgba(0,0,0,0.2);
+      margin-bottom: 1em;
+    }
+
+    button {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      background: #ff3366;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      z-index: 10;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .content {
+      display: none;
+      padding: 30px 20px;
+      animation: fadeIn 1s ease-in-out forwards;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      text-align: center;
+      background: url('AMOR.jpg') center/cover no-repeat;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+    }
+
+    @keyframes fadeOutUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-100%); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      top: 100vh;
+      font-size: 25px;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.8;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      max-width: 45%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    audio {
+      display: none;
+    }
+
+    .music-control {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      font-size: 24px;
+      user-select: none;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover" id="cover">
+    <h1>Feliz cumpleaños💖</h1>
+    <button onclick="start()">Toca para comenzar</button>
+
+    <!-- Corazones animados con emojis -->
+    <div class="heart" style="left:10%; animation-delay: 0s;">❤️</div>
+    <div class="heart" style="left:30%; animation-delay: 1.2s;">❤️</div>
+    <div class="heart" style="left:50%; animation-delay: 2.4s;">❤️</div>
+    <div class="heart" style="left:70%; animation-delay: 3.6s;">❤️</div>
+    <div class="heart" style="left:90%; animation-delay: 4.8s;">❤️</div>
+  </div>
+
+  <div class="content" id="content">
+    <h2>Un mensaje para ti 💌</h2>
+    <p>Hoy es tu cumpleaños y aunque no pueda estar ahí contigo, quería regalarte algo que recoja lo que hemos vivido juntos.</p>
+    <p>No son solo fotos. Son momentos, recuerdos, pedacitos de esta aventura que compartimos. Cada imagen es una parte de ti, una parte de mí, y de todo lo que hemos construido.</p>
+    <p>Feliz cumpleaños, mi vida. Te amo con todo mi corazón 💖</p>
+
+    <h2>Nuestros recuerdos 📸</h2>
+    <div class="gallery"></div>
+  </div>
+
+  <audio id="bgm" loop>
+    <source src="happier.mp3" type="audio/mp3" />
+  </audio>
+
+  <div class="music-control" onclick="toggleMusic()">🎵</div>
+
+  <script>
+    function start() {
+      const cover = document.getElementById('cover');
+      const content = document.getElementById('content');
+
+      cover.style.animation = "fadeOutUp 1s forwards";
+      setTimeout(() => {
+        cover.style.display = "none";
+        content.style.display = "block";
+        toggleMusic(true);
+      }, 1000);
+    }
+
+    function toggleMusic(forcePlay) {
+      const audio = document.getElementById('bgm');
+      if (forcePlay || audio.paused) {
+        audio.play().catch(() => {
+          alert("Toca el botón 🎵 para activar la música 😊");
+        });
+      } else {
+        audio.pause();
+      }
+    }
+
+    // Cargar las fotos automáticamente
+    const gallery = document.querySelector('.gallery');
+    const totalFotos = 70;
+
+    for (let i = 1; i <= totalFotos; i++) {
+      const img = document.createElement('img');
+      img.src = `foto (${i}).jpeg`;
+      img.alt = `Foto ${i}`;
+      gallery.appendChild(img);
+    }
+  </script>
+</body>
+</html>
